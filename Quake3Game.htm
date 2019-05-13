@@ -26,7 +26,7 @@
 		</style>
 	</head>
 	<body>
-		<div class="loading_splash_container">
+		<div class="loading_splash_container" id="loading">
 			<div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 		</div>
 		<div id="viewport-frame"></div>
@@ -52,6 +52,8 @@
 
 			window.onload = function()
 				{
+				document.getElementById("loading").style.display = "none";
+
 				function resizeViewport()
 					{
 					if (!ioq3.canvas){return}
