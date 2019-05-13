@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Quake III Arena</title>
+		<link rel="stylesheet" href="Quake3.css">
+		<link rel="icon" href="Quake3FavIcon1.png" sizes="16x16" type="image/png">
+	</head>
+	<body>
+		<script>
+
+			function runQuake3()
+				{
+				try
+					{
+					// GETTING THE SETTINGS
+					var settingsName = document.getElementById("name").value;
+					settingsName = settingsName.trim();
+					var settingsMapName = document.getElementById("mapname").options[document.getElementById("mapname").selectedIndex].value;
+					var settingsBotCount = document.getElementById("botcount").options[document.getElementById("botcount").selectedIndex].value;
+					var settingsDifficulty = document.getElementById("difficulty").options[document.getElementById("difficulty").selectedIndex].value;
+
+					if (settingsName=="")
+						{
+						settingsName = "UnnamedPlayer";
+						}
+
+					// SETS THE FINAL URL SETTINGS
+					var settingsData = "?set fs_game baseq3&set g_gametype 0&set g_teamAutoJoin 1&";
+					settingsData = settingsData + "map " + settingsMapName + "&";
+					settingsData = settingsData + "addbot grunt " + settingsDifficulty + " f&";
+					if (settingsBotCount>1)
+						{
+						settingsData = settingsData + "addbot stripe " + settingsDifficulty + " f&";
+						}
+					if (settingsBotCount>2)
+						{
+						settingsData = settingsData + "addbot visor " + settingsDifficulty + " f&";
+						}
+					if (settingsBotCount>3)
+						{
+						settingsData = settingsData + "addbot major " + settingsDifficulty + " f&";
+						}
+					if (settingsBotCount>4)
+						{
+						settingsData = settingsData + "addbot daemia " + settingsDifficulty + " f&";
+						}
+					settingsData = settingsData + "name " + settingsName;
+
+					// HIDES THE GUI
+					document.getElementsByClassName("gui_container")[0].style.display = "none";
+
+					// DISPLAYING THE QUAKE III ARENA CONTAINER
+					document.getElementById("container").style.display = "block";
+					document.getElementById("container").focus();
+
+					// STARTING QUAKE III ARENA
+					document.getElementById("container").contentDocument.location.replace("Quake3Game.htm" + encodeURI(settingsData));
+					}
+					catch(err)
+					{
+					}
+				}
+
+			window.onload = function()
+				{
+				document.getElementById("container").contentDocument.location.replace("about:blank");
+				document.getElementById("name").focus();
+
+				// TO KEEP FOCUS IN THE CONTAINER
+				setInterval(function()
+					{
+					document.getElementById("container").focus();
+					}, 250);
+
+				document.getElementById("name").onkeyup = function (evt)
+					{
+					var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+					if (keyCode == 13) {runQuake3()}
+					}
+
+				document.getElementById("mapname").onkeyup = function (evt)
+					{
+					var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+					if (keyCode == 13) {runQuake3()}
+					}
+
+				document.getElementById("botcount").onkeyup = function (evt)
+					{
+					var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+					if (keyCode == 13) {runQuake3()}
+					}
+
+				document.getElementById("difficulty").onkeyup = function (evt)
+					{
+					var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+					if (keyCode == 13) {runQuake3()}
+					}
+				}
+		</script>
+
+		<iframe id="container" src="about:blank"></iframe>
+
+		<div class="gui_container">
+			<div class="gui_background"></div>
+			<div class="gui_title">
+				<div class="gui_title_logo"></div>
+				<div class="gui_title_how1"><span onmouseover="document.getElementById('how').style.display='block'" onmouseout="document.getElementById('how').style.display='none'">How does it works?</span></div>
+				<div class="gui_title_how2" id="how">Write your Nickname, select a map, a number of bots and the difficulty. Click in 'Start match' and a HTML5 rendering of Quake III Arena will start.</div>
+				<div class="gui_title_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
+			</div>
+			<div class="gui_controls">
+				<div class="gui_controls_center">
+					<table class="gui_controls_table">
+						<tr>
+							<td class="gui_controls_table_field">
+								<input type="text" id="name" placeholder="Nickname" maxlength="20"><br />
+								<select id="mapname">
+									<option selected value="q3dm1">q3dm1 - Arena Gate</option>
+									<option value="q3dm7">q3dm7 - Temple of Retribution</option>
+									<option value="q3dm17">q3dm17 - The Longest Yard</option>
+									<option value="q3tourney2">q3tourney2 - The Proving Grounds</option>
+								</select><br />
+								<select id="botcount">
+									<option selected value="1">Against 1 bot</option>
+									<option value="2">Against 2 bots</option>
+									<option value="3">Against 3 bots</option>
+									<option value="4">Against 4 bots</option>
+									<option value="5">Against 5 bots</option>
+								</select><br />
+								<select id="difficulty">
+									<option value="1">I Can Win</option>
+									<option value="2">Bring It On</option>
+									<option value="3">Hurt Me Plenty</option>
+									<option selected value="4">Hardcore</option>
+									<option value="5">Nightmare!</option>
+								</select><br />
+								<input type="submit" Value="Start match" onclick="runQuake3()"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
