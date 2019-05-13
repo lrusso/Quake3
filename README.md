@@ -1,4 +1,3 @@
-# Quake III Arena
-Quake III Arena ported to JavaScript.
+# Quake III Arena - JavaScript porting
 
 Web: https://lrusso.github.io/Quake3JS/Quake3.htm
