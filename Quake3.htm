@@ -16,14 +16,15 @@
 					// GETTING THE SETTINGS
 					var settingsName = document.getElementById("name").value;
 					settingsName = settingsName.trim();
-					var settingsMapName = document.getElementById("mapname").options[document.getElementById("mapname").selectedIndex].value;
-					var settingsBotCount = document.getElementById("botcount").options[document.getElementById("botcount").selectedIndex].value;
-					var settingsDifficulty = document.getElementById("difficulty").options[document.getElementById("difficulty").selectedIndex].value;
-
+					settingsName = settingsName.replace(/[^A-Za-z0-9 \s]/g,"");
 					if (settingsName=="")
 						{
 						settingsName = "UnnamedPlayer";
 						}
+
+					var settingsMapName = document.getElementById("mapname").options[document.getElementById("mapname").selectedIndex].value;
+					var settingsBotCount = document.getElementById("botcount").options[document.getElementById("botcount").selectedIndex].value;
+					var settingsDifficulty = document.getElementById("difficulty").options[document.getElementById("difficulty").selectedIndex].value;
 
 					// SETS THE FINAL URL SETTINGS
 					var settingsData = "?set fs_game baseq3&set g_gametype 0&set g_teamAutoJoin 1&";
@@ -103,43 +104,30 @@
 
 		<div class="gui_container">
 			<div class="gui_background"></div>
-			<div class="gui_title">
-				<div class="gui_title_logo"></div>
-				<div class="gui_title_how1"><span onmouseover="document.getElementById('how').style.display='block'" onmouseout="document.getElementById('how').style.display='none'">How does it works?</span></div>
-				<div class="gui_title_how2" id="how">Write your Nickname, select a map, a number of bots and the difficulty. Click in 'Start match' and a HTML5 rendering of Quake III Arena will start.</div>
-				<div class="gui_title_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
-			</div>
+			<div class="gui_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
 			<div class="gui_controls">
-				<div class="gui_controls_center">
-					<table class="gui_controls_table">
-						<tr>
-							<td class="gui_controls_table_field">
-								<input type="text" id="name" placeholder="Nickname" maxlength="20"><br />
-								<select id="mapname">
-									<option selected value="q3dm1">q3dm1 - Arena Gate</option>
-									<option value="q3dm7">q3dm7 - Temple of Retribution</option>
-									<option value="q3dm17">q3dm17 - The Longest Yard</option>
-									<option value="q3tourney2">q3tourney2 - The Proving Grounds</option>
-								</select><br />
-								<select id="botcount">
-									<option selected value="1">Against 1 bot</option>
-									<option value="2">Against 2 bots</option>
-									<option value="3">Against 3 bots</option>
-									<option value="4">Against 4 bots</option>
-									<option value="5">Against 5 bots</option>
-								</select><br />
-								<select id="difficulty">
-									<option value="1">I Can Win</option>
-									<option value="2">Bring It On</option>
-									<option value="3">Hurt Me Plenty</option>
-									<option selected value="4">Hardcore</option>
-									<option value="5">Nightmare!</option>
-								</select><br />
-								<input type="submit" Value="Start match" onclick="runQuake3()"/>
-							</td>
-						</tr>
-					</table>
-				</div>
+				<input type="text" id="name" placeholder="Nickname" maxlength="20">
+				<select id="mapname">
+					<option selected value="q3dm1">q3dm1</option>
+					<option value="q3dm7">q3dm7</option>
+					<option value="q3dm17">q3dm17</option>
+					<option value="q3tourney2">q3tourney2</option>
+				</select>
+				<select id="botcount">
+					<option selected value="1">1 bot</option>
+					<option value="2">2 bots</option>
+					<option value="3">3 bots</option>
+					<option value="4">4 bots</option>
+					<option value="5">5 bots</option>
+				</select>
+				<select id="difficulty">
+					<option value="1">I Can Win</option>
+					<option value="2">Bring It On</option>
+					<option value="3">Hurt Me Plenty</option>
+					<option selected value="4">Hardcore</option>
+					<option value="5">Nightmare!</option>
+				</select>
+				<input type="submit" Value="Start" onclick="runQuake3()"/>
 			</div>
 		</div>
 	</body>
