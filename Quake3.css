@@ -10,6 +10,9 @@ body{margin:0;padding:0;background-color:black;-webkit-user-select:none;-moz-use
 .gui_controls{position:fixed;bottom:0;left:0;right:0;width:95%;height:37px;margin:0 auto;text-align:center}
 
 input[type=text]{width:150px;background-color:white;border:1px solid silver;font-family:Arial;font-size:15px;line-height:30px;height:30px;margin-bottom:10px;padding-left:4px;padding-right:4px;box-sizing:content-box}
-select{width:157px;background-color:white;border:1px solid silver;font-family:Arial;font-size:15px;line-height:32px;height:32px;margin-bottom:10px;box-sizing:content-box}
 input[type=submit]{width:100px;height:30px;background-color:silver;border:1px solid grey;font-family:Arial;font-size:15px;line-height:32px;height:32px;box-sizing:content-box}
 input[type=submit]:hover{background-color:#D2D2D2;cursor:pointer}
+
+#mapname{width:125px;background-color:white;border:1px solid silver;font-family:Arial;font-size:15px;line-height:32px;height:32px;margin-bottom:10px;box-sizing:content-box}
+#botcount{width:85px;background-color:white;border:1px solid silver;font-family:Arial;font-size:15px;line-height:32px;height:32px;margin-bottom:10px;box-sizing:content-box}
+#difficulty{width:140px;background-color:white;border:1px solid silver;font-family:Arial;font-size:15px;line-height:32px;height:32px;margin-bottom:10px;box-sizing:content-box}
