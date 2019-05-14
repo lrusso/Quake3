@@ -63,6 +63,10 @@
 
 				ioq3.viewport = document.getElementById("viewport-frame");
 				ioq3.elementPointerLock = true;
+				ioq3.exitHandler = function (err)
+					{
+					parent.unloadContainer();
+					}
 				window.addEventListener("resize", resizeViewport);
 
 				var args = ["+set", "fs_cdn", "", "+set", "sv_master1", ""];

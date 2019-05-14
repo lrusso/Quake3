@@ -9,6 +9,8 @@
 	<body>
 		<script>
 
+			var wasLoaded = false;
+
 			function runQuake3()
 				{
 				try
@@ -57,6 +59,34 @@
 
 					// STARTING QUAKE III ARENA
 					document.getElementById("container").contentDocument.location.replace("Quake3Game.htm" + encodeURI(settingsData));
+
+					wasLoaded = true;
+					}
+					catch(err)
+					{
+					}
+				}
+
+			function unloadContainer()
+				{
+				try
+					{
+					// SHOWS THE GUI
+					document.getElementsByClassName("gui_container")[0].style.display = "block";
+
+					// UNLOADING THE QUAKE III ARENA
+					document.getElementById("container").style.display = "none";
+					document.getElementById("container").contentDocument.location.replace("about:blank");
+
+					// FOCUSING THE NICKNAME FIELD
+					document.getElementById("name").focus();
+
+					// WAITING ONE SECOND IN ORDER TO SHOW THE UI AND PREVENTING THAT IF A RETURN KEY WAS PRESSED
+					// IT WILL NOT RELAUNCH QUAKE III ARENA RIGHT AFTER EXITING.
+					setTimeout(function()
+						{
+						wasLoaded = false;
+						}, 1000);
 					}
 					catch(err)
 					{
@@ -77,25 +107,25 @@
 				document.getElementById("name").onkeyup = function (evt)
 					{
 					var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
-					if (keyCode == 13) {runQuake3()}
+					if(keyCode==13){if(wasLoaded==false){runQuake3()}}
 					}
 
 				document.getElementById("mapname").onkeyup = function (evt)
 					{
 					var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
-					if (keyCode == 13) {runQuake3()}
+					if(keyCode==13){if(wasLoaded==false){runQuake3()}}
 					}
 
 				document.getElementById("botcount").onkeyup = function (evt)
 					{
 					var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
-					if (keyCode == 13) {runQuake3()}
+					if(keyCode==13){if(wasLoaded==false){runQuake3()}}
 					}
 
 				document.getElementById("difficulty").onkeyup = function (evt)
 					{
 					var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
-					if (keyCode == 13) {runQuake3()}
+					if(keyCode==13){if(wasLoaded==false){runQuake3()}}
 					}
 				}
 		</script>
