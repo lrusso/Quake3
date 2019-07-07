@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Quake3Game.dat",
+    "compressed": 49292197,
+    "checksum": 857908472
+  },
+  {
+    "name": "baseq3/pak1.pk3",
+    "compressed": 374405,
+    "checksum": 1635885364
+},  
+  {
+    "name": "baseq3/pak3.pk3",
+    "compressed": 276305,
+    "checksum": 682311620
+},  
+  {
+    "name": "baseq3/pak4.pk3",
+    "compressed": 9600350,
+    "checksum": 4113726565
+}
+]
