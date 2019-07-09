@@ -15407,12 +15407,38 @@ function copyTempDouble(ptr) {
   
   					nextEntry();
   				});
+
+          var filecfg = getProfileData();
+          if (filecfg!=null)
+            {
+            try
+              {
+              FS.writeFile('/base/baseq3/q3config.cfg',filecfg);
+              clearProfileData();
+              }
+              catch(err)
+              {
+              }
+            }
   			}
   
   			nextEntry();
   		},SyncInstallers:function (callback) {
   			var downloads = SYSC.DirtyInstallers();
-  
+
+        var filecfg = getProfileData();
+        if (filecfg!=null)
+          {
+          try
+            {
+            FS.writeFile('/base/baseq3/q3config.cfg',filecfg);
+            clearProfileData();
+            }
+            catch(err)
+            {
+            }
+          }
+
   			if (!downloads.length) {
   				return callback();
   			}

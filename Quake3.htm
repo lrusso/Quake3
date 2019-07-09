@@ -10,6 +10,20 @@
 	<body>
 		<script>
 
+			var profileData = null;
+
+			var userLanguage = window.navigator.userLanguage || window.navigator.language;
+			var STRING_ERRORFILENAME = "";
+
+			if (userLanguage.substring(0,2)=="es")
+				{
+				STRING_ERRORFILENAME = "ERROR: Debe seleccionar el archivo q3config.cfg. Contiene su perfil de Quake III Arena.";
+				}
+				else
+				{
+				STRING_ERRORFILENAME = "ERROR: You must select the q3config.cfg file. It has your Quake III Arena profile.";
+				}
+
 			function runQuake3()
 				{
 				try
@@ -23,6 +37,39 @@
 
 					// STARTING QUAKE III ARENA
 					document.getElementById("container").contentDocument.location.replace("Quake3Game.htm");
+					}
+					catch(err)
+					{
+					}
+				}
+
+			function readFile(files)
+				{
+				try
+					{
+					if (files[0].name.toLowerCase()=="q3config.cfg")
+						{
+						var filereader = new FileReader();
+						filereader.file_name = files[0].name;
+						filereader.onload = function()
+							{
+							// SETS THE FILE CONTENT FOR THE EMULATORS
+							profileData = this.result;
+
+							// CLEARING THE FILE ELEMENT
+							document.getElementById("gui_controls_file").value = null;
+
+							// STARTING QUAKE III ARENA
+							runQuake3();
+							};
+
+						// READING THE FILE
+						filereader.readAsText(files[0]);
+						}
+						else
+						{
+						alert(STRING_ERRORFILENAME);
+						}
 					}
 					catch(err)
 					{
@@ -47,6 +94,7 @@
 
 			window.onload = function()
 				{
+				document.getElementById("gui_controls_file").value = null;
 				document.getElementById("container").contentDocument.location.replace("about:blank");
 
 				// TO KEEP FOCUS IN THE CONTAINER
@@ -63,6 +111,8 @@
 			<div class="gui_background"></div>
 			<div class="gui_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
 			<div class="gui_start" onclick="runQuake3()"></div>
+			<div class="gui_upload" onclick="document.getElementById('gui_controls_file').click()"></div>
+			<input type="file" id="gui_controls_file" class="gui_controls_file" onchange="readFile(event.target.files);"/>
 		</div>
 	</body>
 </html>
