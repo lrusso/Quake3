@@ -15448,13 +15448,13 @@ function copyTempDouble(ptr) {
   			var downloads = SYSC.DirtyPaks();
   
   			SYSC.DownloadAssets(downloads, function (asset) {
-  				//SYS.LoadingDescription('loading ' + asset.name);
+  				SYS.LoadingDescription('loading ' + asset.name);
   			}, function (loaded, total) {
-  				//SYS.LoadingProgress(loaded / total);
+  				SYS.LoadingProgress(loaded / total);
   			}, function (asset, data, next) {
   				SYSC.SavePak(asset.name, data, next);
   			}, function (err) {
-  				//SYS.LoadingDescription(null);
+  				SYS.LoadingDescription(null);
   
   				setTimeout(function () {
   					callback(err);
