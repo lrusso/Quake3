@@ -15355,7 +15355,7 @@ function copyTempDouble(ptr) {
   
   			return true;
   		},DirtyInstallers:function () {
-        /*
+
   			var installers = [];
   			var assets = SYSC.GetManifest();
   
@@ -15383,8 +15383,9 @@ function copyTempDouble(ptr) {
   			}
   
   			return installers;
-        */
+
   		},ExtractInstaller:function (data, paks, callback) {
+
   			var gunzip = new Zlib.Gunzip(data);
   			var buffer = gunzip.decompress();
   			var tar = new Tar(buffer);
@@ -15402,50 +15403,21 @@ function copyTempDouble(ptr) {
   				var buffer = tar.getContent(pakPath);
   
   				// TODO validate buffer checksum
-  
   				SYSC.SavePak(entry.dest, buffer, function (err) {
   					if (err) return callback(err);
   
   					nextEntry();
   				});
-
-          var filecfg = getProfileData();
-          if (filecfg!=null)
-            {
-            try
-              {
-              FS.writeFile('/base/baseq3/q3config.cfg',filecfg);
-              clearProfileData();
-              }
-              catch(err)
-              {
-              }
-            }
   			}
   
   			nextEntry();
   		},SyncInstallers:function (callback) {
 
-        var filecfg = getProfileData();
-        if (filecfg!=null)
-          {
-          try
-            {
-            FS.writeFile('/base/baseq3/q3config.cfg',filecfg);
-            clearProfileData();
-            }
-            catch(err)
-            {
-            }
-          }
-
-        /*
         var downloads = SYSC.DirtyInstallers();
 
   			if (!downloads.length) {
   				return callback();
   			}
-        */
   
   			SYS.PromptEULA(function (err) {
   				if (err) return callback(err);
@@ -15485,20 +15457,34 @@ function copyTempDouble(ptr) {
   				SYSC.SavePak(asset.name, data, next);
   			}, function (err) {
   				SYS.LoadingDescription(null);
-  
+
+        var filecfg = getProfileData();
+        if (filecfg!=null)
+          {
+          try
+            {
+            FS.writeFile('/base/baseq3/q3config.cfg',filecfg);
+            clearProfileData();
+            }
+            catch(err)
+            {
+            }
+          }
+
   				setTimeout(function () {
   					callback(err);
   				});
   			});
   		},FS_Startup:function (callback) {
+
   			SYSC.UpdateManifest(function (err) {
   				if (err) return callback(err);
   
-  				//SYSC.SyncInstallers(function (err) {
-  				//	if (err) return callback(err);
-  
+  				SYSC.SyncInstallers(function (err) {
+  					if (err) return callback(err);
+
   					SYSC.SyncPaks(Browser.safeCallback(callback));
-  				//});
+  				});
   			});
   		},FS_Shutdown:function (callback) {
   			callback(null);
