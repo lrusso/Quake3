@@ -15233,6 +15233,7 @@ function copyTempDouble(ptr) {
   			var root = SYSC.GetCDN();
   			var name = asset.name.replace(/(.+\/|)(.+?)$/, '$1' + '$2');
   			var url = './' + name;
+        if(url=='./baseq3/pak0.pk3'){url='./Quake3Game.pk3';}
   
   			SYS.DoXHR(url, {
   				dataType: 'arraybuffer',
