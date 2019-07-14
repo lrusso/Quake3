@@ -15148,7 +15148,6 @@ function copyTempDouble(ptr) {
 
       installers:
         [
-        {name:"Quake3Game.dat",offset:5468,paks:[{src:"demoq3/pak0.pk3",dest:"baseq3/pak0.pk3",checksum:2483777038}]}
         ]
 
 
@@ -15356,6 +15355,7 @@ function copyTempDouble(ptr) {
   
   			return true;
   		},DirtyInstallers:function () {
+        /*
   			var installers = [];
   			var assets = SYSC.GetManifest();
   
@@ -15383,6 +15383,7 @@ function copyTempDouble(ptr) {
   			}
   
   			return installers;
+        */
   		},ExtractInstaller:function (data, paks, callback) {
   			var gunzip = new Zlib.Gunzip(data);
   			var buffer = gunzip.decompress();
@@ -15424,7 +15425,6 @@ function copyTempDouble(ptr) {
   
   			nextEntry();
   		},SyncInstallers:function (callback) {
-  			var downloads = SYSC.DirtyInstallers();
 
         var filecfg = getProfileData();
         if (filecfg!=null)
@@ -15439,9 +15439,13 @@ function copyTempDouble(ptr) {
             }
           }
 
+        /*
+        var downloads = SYSC.DirtyInstallers();
+
   			if (!downloads.length) {
   				return callback();
   			}
+        */
   
   			SYS.PromptEULA(function (err) {
   				if (err) return callback(err);
@@ -15490,11 +15494,11 @@ function copyTempDouble(ptr) {
   			SYSC.UpdateManifest(function (err) {
   				if (err) return callback(err);
   
-  				SYSC.SyncInstallers(function (err) {
-  					if (err) return callback(err);
+  				//SYSC.SyncInstallers(function (err) {
+  				//	if (err) return callback(err);
   
   					SYSC.SyncPaks(Browser.safeCallback(callback));
-  				});
+  				//});
   			});
   		},FS_Shutdown:function (callback) {
   			callback(null);
