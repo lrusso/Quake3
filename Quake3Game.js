@@ -15282,7 +15282,6 @@ function copyTempDouble(ptr) {
   			var fs_game = Pointer_stringify(_Cvar_VariableString(allocate(intArrayFromString('fs_game'), 'i8', ALLOC_STACK)));
   			var com_basegame = Pointer_stringify(_Cvar_VariableString(allocate(intArrayFromString('com_basegame'), 'i8', ALLOC_STACK)));
   			var mapname = Pointer_stringify(_Cvar_VariableString(allocate(intArrayFromString('mapname'), 'i8', ALLOC_STACK)));
-  			var url = './Quake3Game.json';
   
   			function isInstaller(name) {
   				return SYSC.installers.some(function (installer) {
@@ -15309,22 +15308,16 @@ function copyTempDouble(ptr) {
   				}).join(' ');
   			}
   
-  			SYS.DoXHR(url, {
-  				dataType: 'json',
-  				onload: function (err, manifest) {
-  					if (err) return callback(new Error('Failed to download and parse manifest, ' + err.message));
+        var manifest = [{"name":"baseq3/pak0.pk3","compressed":47032154,"checksum":569733172}];
+  			var fs_manifestName = allocate(intArrayFromString('fs_manifest'), 'i8', ALLOC_STACK);
+  			var fs_manifest = allocate(intArrayFromString(formatManifestString(manifest.filter(activePaks))), 'i8', ALLOC_STACK);
+  			_Cvar_Set(fs_manifestName, fs_manifest);
   
-  					var fs_manifestName = allocate(intArrayFromString('fs_manifest'), 'i8', ALLOC_STACK);
-  					var fs_manifest = allocate(intArrayFromString(formatManifestString(manifest.filter(activePaks))), 'i8', ALLOC_STACK);
-  					_Cvar_Set(fs_manifestName, fs_manifest);
+  			var fs_completeManifestName = allocate(intArrayFromString('fs_completeManifest'), 'i8', ALLOC_STACK);
+  			var fs_completeManifest = allocate(intArrayFromString(formatManifestString(manifest)), 'i8', ALLOC_STACK);
+  			_Cvar_Set(fs_completeManifestName, fs_completeManifest);
   
-  					var fs_completeManifestName = allocate(intArrayFromString('fs_completeManifest'), 'i8', ALLOC_STACK);
-  					var fs_completeManifest = allocate(intArrayFromString(formatManifestString(manifest)), 'i8', ALLOC_STACK);
-  					_Cvar_Set(fs_completeManifestName, fs_completeManifest);
-  
-  					return callback();
-  				}
-  			});
+  			return callback();
   		},SavePak:function (name, buffer, callback) {
   			var fs_homepath = Pointer_stringify(_Cvar_VariableString(allocate(intArrayFromString('fs_homepath'), 'i8', ALLOC_STACK)));
   			var localPath = PATH.join(fs_homepath, name);
