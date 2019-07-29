@@ -15309,7 +15309,7 @@ function copyTempDouble(ptr) {
   				}).join(' ');
   			}
   
-        var manifest = [{"name":"baseq3/pak0.pk3","compressed":41324739,"checksum":410294852}];
+        var manifest = [{"name":"baseq3/pak0.pk3","compressed":41324739,"checksum":4012908726}];
   			var fs_manifestName = allocate(intArrayFromString('fs_manifest'), 'i8', ALLOC_STACK);
   			var fs_manifest = allocate(intArrayFromString(formatManifestString(manifest.filter(activePaks))), 'i8', ALLOC_STACK);
   			_Cvar_Set(fs_manifestName, fs_manifest);
