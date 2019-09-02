@@ -8,4 +8,4 @@ https://lrusso.github.io/Quake3JS/Quake3.htm
 
 ## Based on the work of:
 
-https://github.com/inolen/quakejs
+https://github.com/inolen/quakejs **(commit of Mar 26, 2019)**
