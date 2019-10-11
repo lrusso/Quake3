@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Quake III Arena</title>
+		<meta name="theme-color" content="#000000">
+		<link rel="stylesheet" href="Quake3.css">
+		<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB/ElEQVR42p2SS2sTURTH5547994kpvMwY5sSQ7ViMKDGRLBaiHSRjUVcFPQDdNHuBFeuXIuL7nRr/QS6UtCiVEFawYAUuijaRkFrE5p0yGRemZk7jhuJi4akB87mnD+/80RCH8MIxRkRx62ut3OYBvUDEEBnJqWR61t6e/lIgDhAoaCp5fVG8/GRABKj5aIyMv2+3nzUF0ApFcMwlD3Pa/YmtRi7cTEZn363rz/4bzcYjiOEDN8PPFQqlm5jQJVv29vPDnR9rVeYjtE7hWOxa6+b7Xu98Rhjl1KqvKimtFVUuHD+SZJg9/defaXe0reCIGhEfdmAEE8zMp8nMPWyaSwkKIVQCGMYi9qoIp9LqUqlw8MEitph2dETd09TmD/FSA67DgckmCAg84Nuf5oAzsc0rcTsjsIFlARJEmt2t7bT9Z9+32ss/VuiGM0RVT0pMVbMqHKunCD3Px6Y1QwKHFWE2bWO+1D3gw2LC188369FzvteYS6brm6azuYEFoAgfuvNvjHu8dAc+Ixz+bNvq7v1z1ngUjTnzfVWezICeAMDptLai6+6sZoFISMmEpWNln45AoQDA3KqtPyrY73KUjHvAr5aM8zZoT4xI8tLLct6PkbwFRsgX+9YC0MBFEWZcWzrpyziGYOHPyzbWRkK8NcAgFJCNMd1dw/T/AEntsIIUCpiogAAAABJRU5ErkJggg==" sizes="16x16" type="image/png">
+	</head>
+	<body>
+		<script>
+
+			var profileData = null;
+
+			var userLanguage = window.navigator.userLanguage || window.navigator.language;
+			var STRING_ERRORFILENAME = "";
+
+			if (userLanguage.substring(0,2)=="es")
+				{
+				STRING_ERRORFILENAME = "ERROR: Debe seleccionar el archivo q3config.cfg. Contiene su perfil de Quake III Arena.";
+				}
+				else
+				{
+				STRING_ERRORFILENAME = "ERROR: You must select the q3config.cfg file. It has your Quake III Arena profile.";
+				}
+
+			function runQuake3()
+				{
+				try
+					{
+					// HIDES THE GUI
+					document.getElementsByClassName("gui_container")[0].style.display = "none";
+
+					// DISPLAYING THE QUAKE III ARENA CONTAINER
+					document.getElementById("container").style.display = "block";
+					document.getElementById("container").focus();
+
+					// STARTING QUAKE III ARENA
+					document.getElementById("container").contentDocument.location.replace("Quake3Game.htm");
+					}
+					catch(err)
+					{
+					}
+				}
+
+			function readFile(files)
+				{
+				try
+					{
+					if (files[0].name.toLowerCase()=="q3config.cfg")
+						{
+						var filereader = new FileReader();
+						filereader.file_name = files[0].name;
+						filereader.onload = function()
+							{
+							// SETS THE FILE CONTENT FOR THE EMULATORS
+							profileData = this.result;
+
+							// CLEARING THE FILE ELEMENT
+							document.getElementById("gui_controls_file").value = null;
+
+							// STARTING QUAKE III ARENA
+							runQuake3();
+							};
+
+						// READING THE FILE
+						filereader.readAsText(files[0]);
+						}
+						else
+						{
+						alert(STRING_ERRORFILENAME);
+						}
+					}
+					catch(err)
+					{
+					}
+				}
+
+			function unloadContainer()
+				{
+				try
+					{
+					// SHOWS THE GUI
+					document.getElementsByClassName("gui_container")[0].style.display = "block";
+
+					// UNLOADING THE QUAKE III ARENA
+					document.getElementById("container").style.display = "none";
+					document.getElementById("container").contentDocument.location.replace("about:blank");
+					}
+					catch(err)
+					{
+					}
+				}
+
+			window.onload = function()
+				{
+				document.getElementById("gui_controls_file").value = null;
+				document.getElementById("container").contentDocument.location.replace("about:blank");
+
+				// TO KEEP FOCUS IN THE CONTAINER
+				setInterval(function()
+					{
+					document.getElementById("container").focus();
+					}, 250);
+				}
+		</script>
+
+		<iframe id="container" src="about:blank"></iframe>
+
+		<div class="gui_container">
+			<div class="gui_background"></div>
+			<div class="gui_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
+			<div class="gui_start" onclick="runQuake3()"></div>
+			<div class="gui_upload" onclick="document.getElementById('gui_controls_file').click()"></div>
+			<input type="file" id="gui_controls_file" class="gui_controls_file" onchange="readFile(event.target.files);"/>
+		</div>
+	</body>
+</html>
