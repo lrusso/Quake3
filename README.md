@@ -1,5 +1,5 @@
 # Quake III Arena JS - JavaScript porting
- 
+
 ![alt screenshot](https://raw.githubusercontent.com/lrusso/Quake3JS/master/Quake3.png)
 
 ## Web:
