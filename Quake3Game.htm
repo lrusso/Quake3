@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<title>Quake III Arena</title>
 		<style>
-			html,body{height:100%;padding:0;margin:0;background:#000;-webkit-user-select:none;-moz-user-select:none;user-select:none}
+			html,body{height:100%;padding:0;margin:0;background:#000;overflow:hidden;-webkit-user-select:none;-moz-user-select:none;user-select:none}
 			#viewport-frame{position:absolute;top:0;left:0;bottom:0;right:0;overflow:hidden}
 			.loading_splash_container{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0}
 			.lds-spinner{color:white;display:inline-block;position:relative;width:64px;height:64px;}
@@ -22,12 +22,31 @@
 			.lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-0.2s;}
 			.lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-0.1s;}
 			.lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s;}
-			.gui_download{position:absolute;right:10px;top:10px;z-index:999;width:64px;height:64px;cursor:pointer;display:none;background-repeat:no-repeat;background-image:url("data:image/png;base64,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")}
+			.gui_download{position:fixed;right:10px;top:10px;z-index:999;width:64px;height:64px;cursor:pointer;display:none;background-repeat:no-repeat;background-image:url("data:image/png;base64,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")}
 			.gui_download:hover{filter:brightness(110%)}
 			@keyframes lds-spinner{0%{opacity:1;}100%{opacity:0;}}
+
+			.gui_mobile_patch{display:none;position:fixed;left:0;right:0;top:0;bottom:0;z-index:80}
+			.gui_keyesc{display:none;position:fixed;left:5px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
+			.gui_keyok{display:none;position:fixed;left:100px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
+			.gui_keyfire{display:none;position:fixed;right:60px;bottom:53px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:50px;line-height:1.8;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
+			.gui_keyfire_icon{width:86px;height:86px;background:url("data:image/png;base64,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");background-repeat:no-repeat;background-position:center center;opacity:0.2;}
+			.gui_download_mobile{display:none;position:fixed;right:5px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
+			.gui_download_mobile_icon{width:86px;height:86px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AEBFCMNH+q9kQAAAhRJREFUaN7tmLtrFUEUh3/n3usjEWMkiAk2aWwsooh/gSms/RNsI2gngmBhFWy0koBWNiL4wsoUNoGEQBQbJQi+Gh/EByJRCSb5bLZYl13vTO7suhvnlDtnz/l98z5jCmzATknHJY1IsnSTpE+S7pnZZ9XRgCHgJX+3D8BoXQHO42ZToXK2AjMcdPQ7VFeAtqNfp64AlVsEiAARIAJEgAgQASLA/wzgdSsETNJRSWOStuW47HcMNQyczfn+S9JzSQ/MbLWMguUy1djNsqbQrKS1CmbGQpll4wlgvcTev1BF7XuqJPGXqizgzwUWfy3ZJCp9hZgMJP4G0AolaggY9vC/0qP4+0DHQ9veosYWMAWsJYHvAv0uZwNwfYPiHwLbHXK0gaupzeMO0Jd1OpmT4KJjz7SB257i54AdjvFP5/w/mXWaz3sG9JhKW4FpR/FPgEGP2I9yYrzPOi0VJOvzSNQPzHQRvwjs8VyXX7pqA74WOA16Jhso6DGA18C+DWwsy0Xagt9GzeybpGOSnmWa3kkaN7O3Ze3pQUYgFW8EeJHE+Agc6EHbcldtoQGSmKPAU+Bwj51bCNBRiWZmb4AxM1tvbEVWpvhYE0eACOD2KnELWP3HOgtvrJY+ByTtatgA7N5Ua2ClgfpX0gAzDRO/YGY/0wBnJL1qiPglSRN/LOJkIW+RdETSQLatRvZd0mMz+6HNYL8BlNIZuqFPU3wAAAAASUVORK5CYII=");background-repeat:no-repeat;background-position:center center;opacity:0.2;}
+			.gui_joystick{display:none;position:fixed;left:0;bottom:0;width:205px;height:203px;z-index:98}
+
 		</style>
 	</head>
 	<body>
+
+		<div class="gui_mobile_patch" oncontextmenu="return false;"></div>
+		<div class="gui_keyesc" oncontextmenu="return false;">ESC</div>
+		<div class="gui_keyok" oncontextmenu="return false;">OK</div>
+		<div class="gui_keyfire" oncontextmenu="return false;"><div class="gui_keyfire_icon"></div></div>
+		<div class="gui_download_mobile" onclick="downloadProfileData()" oncontextmenu="return false;"><div class="gui_download_mobile_icon"></div></div>
+
+		<div class="gui_joystick" id="joyDiv"></div>
+
 		<div class="loading_splash_container" id="loading">
 			<div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 		</div>
@@ -35,6 +54,10 @@
 		<div id="viewport-frame"></div>
 		<script src="Quake3Game.js"></script>
 		<script>
+
+			// --------------------------------------------------------------------------------------------------------
+			// DESKTOP FUNCTIONS
+			// --------------------------------------------------------------------------------------------------------
 
 			var CTRLS_IDLE = 0;
 
@@ -55,8 +78,12 @@
 				try
 					{
 					CTRLS_IDLE = 0;
-					// SHOWS THE DOWNLOAD BUTTON
-					document.getElementsByClassName("gui_download")[0].style.display = "block";
+
+					if (isMobileDevice()==false)
+						{
+						// SHOWS THE DOWNLOAD BUTTON
+						document.getElementsByClassName("gui_download")[0].style.display = "block";
+						}
 					}
 					catch(err)
 					{
@@ -77,6 +104,10 @@
 					{
 					}
 				}
+
+			// --------------------------------------------------------------------------------------------------------
+			// PROFILE MANAGMENT FUNCTIONS
+			// --------------------------------------------------------------------------------------------------------
 
 			function getProfileData()
 				{
@@ -126,9 +157,374 @@
 				a.remove();
 				}
 
+			// --------------------------------------------------------------------------------------------------------
+			// MOBILE CHECKER FUNCTION
+			// --------------------------------------------------------------------------------------------------------
+
+			function isMobileDevice()
+				{
+				if(navigator.userAgent.match(/Android/i)          ||
+					navigator.userAgent.match(/webOS/i)           ||
+					navigator.userAgent.match(/iPhone/i)          ||
+					navigator.userAgent.match(/iPad/i)            ||
+					navigator.userAgent.match(/iPod/i)            ||
+					navigator.userAgent.match(/BlackBerry/i)      ||
+					navigator.userAgent.match(/Windows Phone/i))
+					{
+					return true;
+					}
+					else
+					{
+					return false;
+					}
+				}
+
+			// --------------------------------------------------------------------------------------------------------
+			// DEFINING KEY STATUS FOR MOBILE DEVICES
+			// --------------------------------------------------------------------------------------------------------
+
+			var keyUpActive = false;
+			var keyDownActive = false;
+			var keyLeftActive = false;
+			var keyRightActive = false;
+
+			var keyEscActive = false;
+			var keyOkActive = false;
+			var keyFireActive = false;
+
+			var lookLeftActive = false;
+			var lookRightActive = false;
+
+			var joystickActive = false;
+
+			// --------------------------------------------------------------------------------------------------------
+			// VIRTUAL JOYSTICK FOR MOBILE DEVICES
+			// --------------------------------------------------------------------------------------------------------
+
+			var JoyStick=function(t,e){var i=void 0===(e=e||{}).title?"joystick":e.title,n=void 0===e.width?0:e.width,o=void 0===e.height?0:e.height,h=void 0===e.internalFillColor?"rgba(255,255,255,0.08)":e.internalFillColor,r=void 0===e.internalLineWidth?2:e.internalLineWidth,d=void 0===e.internalStrokeColor?"rgba(255,255,255,0.1)":e.internalStrokeColor,a=void 0===e.externalLineWidth?2:e.externalLineWidth,l=void 0===e.externalStrokeColor?"rgba(0,0,0,0)":e.externalStrokeColor,c=document.getElementById(t),u=document.createElement("canvas");u.id=i,0==n&&(n=c.clientWidth),0==o&&(o=c.clientHeight),u.width=n,u.height=o,c.appendChild(u);var s=u.getContext("2d"),f=0,g=2*Math.PI,v=(u.width-110)/2,w=v+5,C=v+30,L=u.width/2,p=u.height/2,S=u.width/10,k=-1*S,E=u.height/10,W=-1*E,m=L,G=p;function x(){s.beginPath(),s.arc(L,p,C,0,g,!1),s.lineWidth=a,s.strokeStyle=l,s.stroke()}function y(){s.beginPath(),m<v&&(m=w),m+v>u.width&&(m=u.width-w),G<v&&(G=w),G+v>u.height&&(G=u.height-w),s.arc(m,G,v,0,g,!1);var t=s.createRadialGradient(L,p,5,L,p,200);t.addColorStop(0,h),t.addColorStop(1,d),s.fillStyle=t,s.fill(),s.lineWidth=r,s.strokeStyle=d,s.stroke()}u.addEventListener("touchstart",function(t){f=1},!1),u.addEventListener("touchmove",function(t){t.preventDefault(),1==f&&(m=t.touches[0].pageX,G=u.height-(window.innerHeight-t.touches[0].pageY),m-=u.offsetLeft,s.clearRect(0,0,u.width,u.height),x(),y())},!1),u.addEventListener("touchend",function(t){f=0,m=L,G=p,s.clearRect(0,0,u.width,u.height),x(),y()},!1),u.addEventListener("mousedown",function(t){f=1},!1),u.addEventListener("mousemove",function(t){1==f&&(m=t.pageX,G=u.height-(window.innerHeight-t.pageY),m-=u.offsetLeft,G-=u.offsetTop,s.clearRect(0,0,u.width,u.height),x(),y())},!1),u.addEventListener("mouseup",function(t){f=0,m=L,G=p,s.clearRect(0,0,u.width,u.height),x(),y()},!1),x(),y(),this.GetWidth=function(){return u.width},this.GetHeight=function(){return u.height},this.GetPosX=function(){return m},this.GetPosY=function(){return G},this.GetX=function(){return((m-L)/w*100).toFixed()},this.GetY=function(){return((G-p)/w*100*-1).toFixed()},this.GetDir=function(){var t="",e=m-L,i=G-p;return i>=W&&i<=E&&(t="C"),i<W&&(t="N"),i>E&&(t="S"),e<k&&("C"==t?t="W":t+="W"),e>S&&("C"==t?t="E":t+="E"),t}};
+
+			var joystick = null;
+
+			function joystickSetActive(a)
+				{
+				joystickActive = a;
+				}
+
+			function showVirtualJoystick()
+				{
+				joystick = new JoyStick("joyDiv");
+				setInterval(function()
+					{
+					var joystickDirection = joystick.GetDir();
+					switch(joystickDirection)
+						{
+						case "N":
+						try{keyUp(true);keyDown(false);keyLeft(false);keyRight(false)}catch(err){}
+						break;
+
+						case "S":
+						try{keyUp(false);keyDown(true);keyLeft(false);keyRight(false)}catch(err){}
+						break;
+
+						case "W":
+						try{keyUp(false);keyDown(false);keyLeft(true);keyRight(false)}catch(err){}
+						break;
+
+						case "E":
+						try{keyUp(false);keyDown(false);keyLeft(false);keyRight(true)}catch(err){}
+						break;
+
+						case "NW":
+						try{keyUp(true);keyDown(false);keyLeft(true);keyRight(false)}catch(err){}
+						break;
+
+						case "NE":
+						try{keyUp(true);keyDown(false);keyLeft(false);keyRight(true)}catch(err){}
+						break;
+
+						case "SE":
+						try{keyUp(false);keyDown(true);keyLeft(false);keyRight(true)}catch(err){}
+						break;
+
+						case "SW":
+						try{keyUp(false);keyDown(true);keyLeft(true);keyRight(false)}catch(err){}
+						break;
+
+						default:
+						try{keyUp(false);keyDown(false);keyLeft(false);keyRight(false)}catch(err){}
+						break;
+						}
+					}, 25);
+				}
+
+			// --------------------------------------------------------------------------------------------------------
+			// VIRTUAL KEYS FUNCTIONS FOR MOBILE DEVICES
+			// --------------------------------------------------------------------------------------------------------
+
+			function sendEvent(eventType, eventCode)
+				{
+				try
+					{
+					var oEvent = document.createEvent("KeyboardEvent");
+
+					Object.defineProperty(oEvent,"keyCode",{get:function(){return this.keyCodeVal}}); // CHROMIUM HACK
+					Object.defineProperty(oEvent,"which",{get:function(){return this.keyCodeVal}}); // CHROMIUM HACK
+
+					if (oEvent.initKeyboardEvent)
+						{
+						oEvent.initKeyboardEvent(eventType, true, true, document.defaultView, false, false, false, false, eventCode, eventCode);
+						}
+						else
+						{
+						oEvent.initKeyEvent(eventType, true, true, document.defaultView, false, false, false, false, eventCode, eventCode);
+						}
+
+					oEvent.keyCodeVal = eventCode;
+
+					Module["canvas"].dispatchEvent(oEvent);
+					}
+					catch(err)
+					{
+					}
+				}
+
+			function keyUp(active)
+				{
+				if (active==true && keyUpActive==false)
+					{
+					sendEvent("keydown",87);
+					sendEvent("keydown",38);
+					keyUpActive = true;
+					}
+				else if (active==false && keyUpActive==true)
+					{
+					sendEvent("keyup",87);
+					sendEvent("keyup",38);
+					keyUpActive = false;
+					}
+				}
+
+			function keyDown(active)
+				{
+				if (active==true && keyDownActive==false)
+					{
+					sendEvent("keydown",83);
+					sendEvent("keydown",40);
+					keyDownActive = true;
+					}
+				else if (active==false && keyDownActive==true)
+					{
+					sendEvent("keyup",83);
+					sendEvent("keyup",40);
+					keyDownActive = false;
+					}
+				}
+
+			function keyLeft(active)
+				{
+				if (active==true && keyLeftActive==false)
+					{
+					sendEvent("keydown",65);
+					keyLeftActive = true;
+					}
+				else if (active==false && keyLeftActive==true)
+					{
+					sendEvent("keyup",65);
+					keyLeftActive = false;
+					}
+				}
+
+			function keyRight(active)
+				{
+				if (active==true && keyRightActive==false)
+					{
+					sendEvent("keydown",68);
+					keyRightActive = true;
+					}
+				else if (active==false && keyRightActive==true)
+					{
+					sendEvent("keyup",68);
+					keyRightActive = false;
+					}
+				}
+
+			function keyEsc(active)
+				{
+				if (active==true && keyEscActive==false)
+					{
+					sendEvent("keydown",27);
+					keyEscActive = true;
+					}
+				else if (active==false && keyEscActive==true)
+					{
+					sendEvent("keyup",27);
+					keyEscActive = false;
+					}
+				}
+
+			function keyOk(active)
+				{
+				if (active==true && keyOkActive==false)
+					{
+					sendEvent("keydown",13);
+					keyOkActive = true;
+					}
+				else if (active==false && keyOkActive==true)
+					{
+					sendEvent("keyup",13);
+					keyOkActive = false;
+					}
+				}
+
+			function keyFire(active)
+				{
+				if (active==true && keyFireActive==false)
+					{
+					sendEvent("keydown",17);
+					keyFireActive = true;
+					}
+				else if (active==false && keyFireActive==true)
+					{
+					sendEvent("keyup",17);
+					keyFireActive = false;
+					}
+				}
+
+			function lookLeft(active)
+				{
+				if (active==true && lookLeftActive==false)
+					{
+					sendEvent("keydown",37);
+					lookLeftActive = true;
+					}
+				else if (active==false && lookLeftActive==true)
+					{
+					sendEvent("keyup",37);
+					lookLeftActive = false;
+					}
+				}
+
+			function lookRight(active)
+				{
+				if (active==true && lookRightActive==false)
+					{
+					sendEvent("keydown",39);
+					lookRightActive = true;
+					}
+				else if (active==false && lookRightActive==true)
+					{
+					sendEvent("keyup",39);
+					lookRightActive = false;
+					}
+				}
+
+			// --------------------------------------------------------------------------------------------------------
+			// LOOKING FUNCTIONS FOR MOBILE DEVICES
+			// --------------------------------------------------------------------------------------------------------
+
+			var xDown = 0;
+			var yDown = 0;
+
+			document.getElementsByClassName("gui_mobile_patch")[0].addEventListener("touchstart", function(event)
+				{
+				var touchIndex = 0;
+				if (joystickActive==true){touchIndex=1}
+
+				var firstTouch = event.touches[touchIndex];
+				xDown = firstTouch.clientX;
+				yDown = firstTouch.clientY;
+				});
+
+			document.getElementsByClassName("gui_mobile_patch")[0].addEventListener("touchmove", function(event)
+				{
+				if (!xDown || !yDown)
+					{
+					return;
+					}
+
+				var touchIndex = 0;
+				if (joystickActive==true){touchIndex=1}
+
+				var xUp = event.touches[touchIndex].clientX;
+				var yUp = event.touches[touchIndex].clientY;
+				var xDiff = xDown - xUp;
+				var yDiff = yDown - yUp;
+
+				var eventCatched = false;
+
+				if (Math.abs(xDiff)>Math.abs(yDiff))
+					{
+					if (xDiff > 50)
+						{
+						lookLeft(true);
+						lookRight(false);
+						xDown = xUp;
+						yDown = yUp;
+						eventCatched = true;
+						}
+					else if (xDiff < -50)
+						{
+						lookLeft(false);
+						lookRight(true);
+						xDown = xUp;
+						yDown = yUp;
+						eventCatched = true;
+						}
+					}
+				else
+					{
+					if (yDiff > 50)
+						{
+						// LOOK UP
+						}
+					else if (yDiff < -50)
+						{
+						// LOOK DOWN
+						}
+					}
+
+				if (eventCatched = false)
+					{
+					lookLeft(false);
+					lookRight(false);
+					}
+				});
+
+			document.getElementsByClassName("gui_mobile_patch")[0].addEventListener("touchend", function(event)
+				{
+				lookLeft(false);
+				lookRight(false);
+				xDown = null;
+				yDown = null;
+				});
+
+			// --------------------------------------------------------------------------------------------------------
+			// WINDOW ONLOAD AND ONRESIZE FUNCTIONS
+			// --------------------------------------------------------------------------------------------------------
+
 			window.onload = function()
 				{
 				document.getElementById("loading").style.display = "none";
+
+				if (isMobileDevice()==true)
+					{
+					document.getElementsByClassName("gui_mobile_patch")[0].style.display = "block";
+					document.getElementsByClassName("gui_keyesc")[0].style.display = "block";
+					document.getElementsByClassName("gui_keyesc")[0].addEventListener("touchstart",function(event){keyEsc(true)});
+					document.getElementsByClassName("gui_keyesc")[0].addEventListener("touchend",function(event){keyEsc(false)});
+					document.getElementsByClassName("gui_keyok")[0].style.display = "block";
+					document.getElementsByClassName("gui_keyok")[0].addEventListener("touchstart",function(event){keyOk(true)});
+					document.getElementsByClassName("gui_keyok")[0].addEventListener("touchend",function(event){keyOk(false)});
+					document.getElementsByClassName("gui_keyfire")[0].style.display = "block";
+					document.getElementsByClassName("gui_keyfire")[0].addEventListener("touchstart",function(event){keyFire(true)});
+					document.getElementsByClassName("gui_keyfire")[0].addEventListener("touchend",function(event){keyFire(false)});
+					document.getElementsByClassName("gui_download_mobile")[0].style.display = "block";
+					document.getElementsByClassName("gui_joystick")[0].style.display = "block";
+					document.getElementsByClassName("gui_joystick")[0].addEventListener("touchstart",function(event){joystickSetActive(true)});
+					document.getElementsByClassName("gui_joystick")[0].addEventListener("touchend",function(event){joystickSetActive(false)});
+					document.getElementsByClassName("gui_download")[0].style.display = "none";
+					showVirtualJoystick();
+					}
 
 				setInterval(goBackButtonTimerIncrement, 1000);
 				document.addEventListener("click", mouseChecker, false);
