@@ -26,7 +26,8 @@
 			.gui_download:hover{filter:brightness(110%)}
 			@keyframes lds-spinner{0%{opacity:1;}100%{opacity:0;}}
 
-			.gui_mobile_patch{display:none;position:fixed;left:0;right:0;top:0;bottom:0;z-index:80}
+			.gui_mobile_patch{display:none;position:fixed;left:0;right:0;top:0;bottom:0;z-index:70}
+			.gui_mobile_look{display:none;position:fixed;left:255px;right:0;top:0;bottom:0;z-index:80}
 			.gui_keyesc{display:none;position:fixed;left:5px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
 			.gui_keyok{display:none;position:fixed;left:100px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
 			.gui_keyfire{display:none;position:fixed;right:60px;bottom:53px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:50px;line-height:1.8;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
@@ -42,6 +43,7 @@
 	<body>
 
 		<div class="gui_mobile_patch" oncontextmenu="return false;"></div>
+		<div class="gui_mobile_look" oncontextmenu="return false;"></div>
 		<div class="gui_keyesc" oncontextmenu="return false;">ESC</div>
 		<div class="gui_keyok" oncontextmenu="return false;">OK</div>
 		<div class="gui_keyfire" oncontextmenu="return false;"><div class="gui_keyfire_icon"></div></div>
@@ -443,7 +445,7 @@
 			var xDown = 0;
 			var yDown = 0;
 
-			document.getElementsByClassName("gui_mobile_patch")[0].addEventListener("touchstart", function(event)
+			document.getElementsByClassName("gui_mobile_look")[0].addEventListener("touchstart", function(event)
 				{
 				var touchIndex = 0;
 				if (joystickActive==true){touchIndex=1}
@@ -453,7 +455,7 @@
 				yDown = firstTouch.clientY;
 				});
 
-			document.getElementsByClassName("gui_mobile_patch")[0].addEventListener("touchmove", function(event)
+			document.getElementsByClassName("gui_mobile_look")[0].addEventListener("touchmove", function(event)
 				{
 				if (!xDown || !yDown)
 					{
@@ -508,7 +510,7 @@
 					}
 				});
 
-			document.getElementsByClassName("gui_mobile_patch")[0].addEventListener("touchend", function(event)
+			document.getElementsByClassName("gui_mobile_look")[0].addEventListener("touchend", function(event)
 				{
 				lookLeft(false);
 				lookRight(false);
@@ -527,6 +529,7 @@
 				if (isMobileDevice()==true)
 					{
 					document.getElementsByClassName("gui_mobile_patch")[0].style.display = "block";
+					document.getElementsByClassName("gui_mobile_look")[0].style.display = "block";
 					document.getElementsByClassName("gui_keyesc")[0].style.display = "block";
 					document.getElementsByClassName("gui_keyesc")[0].addEventListener("touchstart",function(event){keyEsc(true)});
 					document.getElementsByClassName("gui_keyesc")[0].addEventListener("touchend",function(event){keyEsc(false)});
