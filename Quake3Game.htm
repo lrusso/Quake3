@@ -29,7 +29,8 @@
 			.gui_mobile_patch{display:none;position:fixed;left:0;right:0;top:0;bottom:0;z-index:70}
 			.gui_mobile_look{display:none;position:fixed;left:255px;right:0;top:0;bottom:0;z-index:75}
 			.gui_keyesc{display:none;position:fixed;left:5px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
-			.gui_keyok{display:none;position:fixed;left:100px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
+			.gui_keytab{display:none;position:fixed;left:100px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
+			.gui_keyok{display:none;position:fixed;left:195px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
 			.gui_download_mobile{display:none;position:fixed;right:5px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
 			.gui_download_mobile_icon{width:86px;height:86px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AEBFCMNH+q9kQAAAhRJREFUaN7tmLtrFUEUh3/n3usjEWMkiAk2aWwsooh/gSms/RNsI2gngmBhFWy0koBWNiL4wsoUNoGEQBQbJQi+Gh/EByJRCSb5bLZYl13vTO7suhvnlDtnz/l98z5jCmzATknHJY1IsnSTpE+S7pnZZ9XRgCHgJX+3D8BoXQHO42ZToXK2AjMcdPQ7VFeAtqNfp64AlVsEiAARIAJEgAgQASLA/wzgdSsETNJRSWOStuW47HcMNQyczfn+S9JzSQ/MbLWMguUy1djNsqbQrKS1CmbGQpll4wlgvcTev1BF7XuqJPGXqizgzwUWfy3ZJCp9hZgMJP4G0AolaggY9vC/0qP4+0DHQ9veosYWMAWsJYHvAv0uZwNwfYPiHwLbHXK0gaupzeMO0Jd1OpmT4KJjz7SB257i54AdjvFP5/w/mXWaz3sG9JhKW4FpR/FPgEGP2I9yYrzPOi0VJOvzSNQPzHQRvwjs8VyXX7pqA74WOA16Jhso6DGA18C+DWwsy0Xagt9GzeybpGOSnmWa3kkaN7O3Ze3pQUYgFW8EeJHE+Agc6EHbcldtoQGSmKPAU+Bwj51bCNBRiWZmb4AxM1tvbEVWpvhYE0eACOD2KnELWP3HOgtvrJY+ByTtatgA7N5Ua2ClgfpX0gAzDRO/YGY/0wBnJL1qiPglSRN/LOJkIW+RdETSQLatRvZd0mMz+6HNYL8BlNIZuqFPU3wAAAAASUVORK5CYII=");background-repeat:no-repeat;background-position:center center;opacity:0.2;}
 			.gui_keyfire{display:none;position:fixed;right:60px;bottom:53px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:50px;line-height:1.8;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
@@ -47,6 +48,7 @@
 		<div class="gui_mobile_patch" oncontextmenu="return false;"></div>
 		<div class="gui_mobile_look" oncontextmenu="return false;"></div>
 		<div class="gui_keyesc" oncontextmenu="return false;">ESC</div>
+		<div class="gui_keytab" oncontextmenu="return false;">TAB</div>
 		<div class="gui_keyok" oncontextmenu="return false;">OK</div>
 		<div class="gui_download_mobile" onclick="downloadProfileData()" oncontextmenu="return false;"><div class="gui_download_mobile_icon"></div></div>
 		<div class="gui_nextweapon" oncontextmenu="return false;"><div class="gui_nextweapon_icon"></div></div>
@@ -197,6 +199,7 @@
 			var keyRightActive = false;
 
 			var keyEscActive = false;
+			var keyTabActive = false;
 			var keyOkActive = false;
 			var keyNextWeaponActive = false;
 			var keyFireActive = false;
@@ -369,6 +372,20 @@
 					{
 					sendEvent("keyup",27);
 					keyEscActive = false;
+					}
+				}
+
+			function keyTab(active)
+				{
+				if (active==true && keyTabActive==false)
+					{
+					sendEvent("keydown",9);
+					keyTabActive = true;
+					}
+				else if (active==false && keyTabActive==true)
+					{
+					sendEvent("keyup",9);
+					keyTabActive = false;
 					}
 				}
 
@@ -551,6 +568,9 @@
 					document.getElementsByClassName("gui_keyesc")[0].style.display = "block";
 					document.getElementsByClassName("gui_keyesc")[0].addEventListener("touchstart",function(event){keyEsc(true)});
 					document.getElementsByClassName("gui_keyesc")[0].addEventListener("touchend",function(event){keyEsc(false)});
+					document.getElementsByClassName("gui_keytab")[0].style.display = "block";
+					document.getElementsByClassName("gui_keytab")[0].addEventListener("touchstart",function(event){keyTab(true)});
+					document.getElementsByClassName("gui_keytab")[0].addEventListener("touchend",function(event){keyTab(false)});
 					document.getElementsByClassName("gui_keyok")[0].style.display = "block";
 					document.getElementsByClassName("gui_keyok")[0].addEventListener("touchstart",function(event){keyOk(true)});
 					document.getElementsByClassName("gui_keyok")[0].addEventListener("touchend",function(event){keyOk(false)});
