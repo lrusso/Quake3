@@ -9,3 +9,7 @@ https://lrusso.github.io/Quake3/Quake3.htm
 ## Based on the work of:
 
 https://github.com/inolen/quakejs **(Commit March 26, 2019)**
+
+## Virtual joystick code:
+
+https://github.com/lrusso/VirtualJoystick
