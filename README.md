@@ -1,10 +1,15 @@
 # Quake III Arena JS - JavaScript porting
 
-![alt screenshot](https://raw.githubusercontent.com/lrusso/Quake3/master/Quake3.png)
+![alt screenshot](https://raw.githubusercontent.com/lrusso/Quake3/master/Quake31.png)
 
 ## Web:
 
 https://lrusso.github.io/Quake3/Quake3.htm
+
+## This porting has mobile compatibility
+
+![alt screenshot](https://raw.githubusercontent.com/lrusso/Quake3/master/Quake32.png)
+
 
 ## Virtual joystick code:
 
