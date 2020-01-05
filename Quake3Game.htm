@@ -27,7 +27,7 @@
 			@keyframes lds-spinner{0%{opacity:1;}100%{opacity:0;}}
 
 			.gui_mobile_patch{display:none;position:fixed;left:0;right:0;top:0;bottom:0;z-index:70}
-			.gui_mobile_look{display:none;position:fixed;left:255px;right:0;top:0;bottom:0;z-index:75}
+			.gui_mobile_look{display:none;position:fixed;left:290px;right:0;top:0;bottom:140px;z-index:75}
 			.gui_keyesc{display:none;position:fixed;left:5px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
 			.gui_keytab{display:none;position:fixed;left:100px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
 			.gui_keyok{display:none;position:fixed;left:195px;top:5px;width:86px;height:86px;background-color:rgba(255,255,255,0.1);font-family:Arial;font-size:35px;line-height:2.5;color:rgba(255,255,255,0.2);text-align:center;border-radius:50px;cursor:default;z-index:98}
@@ -498,14 +498,29 @@
 			var xDown = 0;
 			var yDown = 0;
 
+			var currentFingerLook = -1;
+
 			document.getElementsByClassName("gui_mobile_look")[0].addEventListener("touchstart", function(event)
 				{
-				var touchIndex = 0;
-				if (joystickActive==true){touchIndex=1}
+				var tempObject1 = document.getElementsByClassName("gui_mobile_look")[0].getBoundingClientRect();
+				var tempObject1_Left = tempObject1.left;
+				var tempObject1_Top = tempObject1.top + document.getElementsByClassName("gui_mobile_look")[0].offsetHeight;
 
-				var firstTouch = event.touches[touchIndex];
-				xDown = firstTouch.clientX;
-				yDown = firstTouch.clientY;
+				for (var i=0; i < event.touches.length; i++)
+					{
+					// TEMP OBJECT 1 VALIDATION
+					if (event.touches[i].pageX>=tempObject1_Left && event.touches[i].pageY<=tempObject1_Top)
+						{
+						currentFingerLook = i;
+						}
+					}
+
+				if (currentFingerLook>-1)
+					{
+					var firstTouch = event.touches[currentFingerLook];
+					xDown = firstTouch.clientX;
+					yDown = firstTouch.clientY;
+					}
 				});
 
 			document.getElementsByClassName("gui_mobile_look")[0].addEventListener("touchmove", function(event)
@@ -515,51 +530,51 @@
 					return;
 					}
 
-				var touchIndex = 0;
-				if (joystickActive==true){touchIndex=1}
-
-				var xUp = event.touches[touchIndex].clientX;
-				var yUp = event.touches[touchIndex].clientY;
-				var xDiff = xDown - xUp;
-				var yDiff = yDown - yUp;
-
-				var eventCatched = false;
-
-				if (Math.abs(xDiff)>Math.abs(yDiff))
+				if (currentFingerLook>-1)
 					{
-					if (xDiff > 50)
+					var xUp = event.touches[currentFingerLook].clientX;
+					var yUp = event.touches[currentFingerLook].clientY;
+					var xDiff = xDown - xUp;
+					var yDiff = yDown - yUp;
+
+					var eventCatched = false;
+
+					if (Math.abs(xDiff)>Math.abs(yDiff))
 						{
-						lookLeft(true);
-						lookRight(false);
-						xDown = xUp;
-						yDown = yUp;
-						eventCatched = true;
+						if (xDiff > 50)
+							{
+							lookLeft(true);
+							lookRight(false);
+							xDown = xUp;
+							yDown = yUp;
+							eventCatched = true;
+							}
+						else if (xDiff < -50)
+							{
+							lookLeft(false);
+							lookRight(true);
+							xDown = xUp;
+							yDown = yUp;
+							eventCatched = true;
+							}
 						}
-					else if (xDiff < -50)
+					else
+						{
+						if (yDiff > 25)
+							{
+							// LOOK UP
+							}
+						else if (yDiff < -25)
+							{
+							// LOOK DOWN
+							}
+						}
+
+					if (eventCatched = false)
 						{
 						lookLeft(false);
-						lookRight(true);
-						xDown = xUp;
-						yDown = yUp;
-						eventCatched = true;
+						lookRight(false);
 						}
-					}
-				else
-					{
-					if (yDiff > 25)
-						{
-						// LOOK UP
-						}
-					else if (yDiff < -25)
-						{
-						// LOOK DOWN
-						}
-					}
-
-				if (eventCatched = false)
-					{
-					lookLeft(false);
-					lookRight(false);
 					}
 				});
 
@@ -569,6 +584,7 @@
 				lookRight(false);
 				xDown = null;
 				yDown = null;
+				currentFingerLook = -1;
 				});
 
 			// --------------------------------------------------------------------------------------------------------
