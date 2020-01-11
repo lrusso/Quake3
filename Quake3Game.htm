@@ -646,7 +646,9 @@
 						}
 					parent.unloadContainer();
 					}
-				ioq3.callMain();
+
+				var args = ["+set","cl_yawspeed","240"]; // FOR A FASTER 'MOUSE LOOK' IN MOBILE DEVICES
+				ioq3.callMain(args);
 				}
 
 			window.onresize = function()
