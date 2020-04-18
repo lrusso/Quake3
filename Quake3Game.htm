@@ -604,7 +604,7 @@
 			// WINDOW ONLOAD AND ONRESIZE FUNCTIONS
 			// --------------------------------------------------------------------------------------------------------
 
-			window.onload = function()
+			window.addEventListener("load", function()
 				{
 				document.getElementById("loading").style.display = "none";
 
@@ -662,9 +662,9 @@
 
 				var args = ["+set","cl_yawspeed","240"]; // FOR A FASTER 'MOUSE LOOK' IN MOBILE DEVICES
 				ioq3.callMain(args);
-				}
+				});
 
-			window.onresize = function()
+			window.addEventListener("resize", function()
 				{
 				try
 					{
@@ -675,7 +675,7 @@
 					catch(err)
 					{
 					}
-				}
+				});
 		</script>
 	</body>
 </html>
