@@ -38,143 +38,165 @@
 	<body class="body">
 		<div class="wrapper">
 			<script>
+				// alertCustom.js
+				function alertCustom(title,message,accept,callback){try{var alertButtonDelay = new Date().getTime();var alertContainer = document.createElement("div");alertContainer.className = "alert_confirm_input_custom";alertContainer.style.position = "fixed";alertContainer.style.top = 0;alertContainer.style.bottom = 0;alertContainer.style.left = 0;alertContainer.style.right = 0;alertContainer.style.zIndex = 999;alertContainer.style.backgroundColor = "rgba(0,0,0,0.5)";alertContainer.style.userSelect = "none";var alertForm = document.createElement("div");alertForm.style.position = "relative";alertForm.style.top = "50%";alertForm.style.left = 0;alertForm.style.right = 0;alertForm.style.marginLeft = "auto";alertForm.style.marginRight = "auto";alertForm.style.transform = "translateY(-50%)";alertForm.style.width = "300px";alertForm.style.backgroundColor = "#f2f2f2";alertForm.style.textAlign = "center";alertForm.style.borderRadius = "5px";alertForm.style.overflow = "hidden";alertForm.style.boxShadow = "0 2px 2px 1px rgba(0,0,0,0.4)";var alertTitle = document.createElement("div");alertTitle.style.textAlign = "left";alertTitle.style.paddingLeft = "10px";alertTitle.style.backgroundColor = "#3a76b1";alertTitle.style.fontFamily = "Arial";alertTitle.style.fontSize = "16px";alertTitle.style.fontWeight = "bold";alertTitle.style.color = "white";alertTitle.style.lineHeight = 2.5;alertTitle.innerHTML = title;alertTitle.style.cursor = "default";var alertMessage = document.createElement("div");alertMessage.style.padding = "20px";alertMessage.style.fontFamily = "Arial";alertMessage.style.fontSize = "16px";alertMessage.style.color = "black";alertMessage.style.textAlign = "center";alertMessage.style.lineHeight = 2;alertMessage.innerHTML = message;alertMessage.style.cursor = "default";var alertButton = document.createElement("input");alertButton.type = "submit";alertButton.style.outline = "none";alertButton.style.padding = "10px";alertButton.style.backgroundColor = "#d2d2d2";alertButton.style.border = "1px solid #b2b2b2";alertButton.style.fontFamily = "Arial";alertButton.style.fontSize = "16px";alertButton.style.color = "black";alertButton.style.textAlign = "center";alertButton.style.lineHeight = 1.5;alertButton.style.display = "inline-block";alertButton.style.marginBottom = "10px";alertButton.style.paddingLeft = "40px";alertButton.style.paddingRight = "40px";alertButton.style.cursor = "pointer";alertButton.style.borderRadius = "5px";alertButton.addEventListener("keydown",function(event){event.preventDefault()});alertButton.addEventListener("keyup",function(event){if (event.keyCode==13 && new Date().getTime()>alertButtonDelay+200){callback();document.body.removeChild(alertContainer)}});alertButton.addEventListener("click",function(event){callback();document.body.removeChild(alertContainer)});alertButton.value = accept;alertForm.appendChild(alertTitle);alertForm.appendChild(alertMessage);alertForm.appendChild(alertButton);alertContainer.appendChild(alertForm);document.body.appendChild(alertContainer);alertButton.focus()}catch(err){}}
 
-			var profileData = null;
+				var profileData = null;
 
-			var userLanguage = window.navigator.userLanguage || window.navigator.language;
-			var STRING_ERRORFILENAME = "";
+				var userLanguage = window.navigator.userLanguage || window.navigator.language;
+				var STRING_ERROR_TITLE = "";
+				var STRING_ERROR_MESSAGE = "";
+				var STRING_ERROR_OK = "";
 
-			if (userLanguage.substring(0,2)=="es")
-				{
-				STRING_ERRORFILENAME = "ERROR: Debe seleccionar el archivo q3config.cfg. Contiene su perfil de Quake III Arena.";
-				}
-				else
-				{
-				STRING_ERRORFILENAME = "ERROR: You must select the q3config.cfg file. It has your Quake III Arena profile.";
-				}
-
-			function runQuake3()
-				{
-				try
+				if (userLanguage.substring(0,2)=="es")
 					{
-					// HIDES THE GUI
-					document.getElementsByClassName("gui_container")[0].style.display = "none";
-
-					// DISPLAYING THE QUAKE III ARENA CONTAINER
-					document.getElementById("container").style.display = "block";
-					document.getElementById("container").focus();
-
-					// STARTING QUAKE III ARENA
-					document.getElementById("container").contentDocument.location.replace("Quake3Game.htm");
-					}
-					catch(err)
-					{
-					}
-				}
-
-			function readFile(files)
-				{
-				try
-					{
-					if (files[0].name.toLowerCase()=="q3config.cfg")
-						{
-						var filereader = new FileReader();
-						filereader.file_name = files[0].name;
-						filereader.onload = function()
-							{
-							// SETS THE FILE CONTENT FOR THE EMULATORS
-							profileData = this.result;
-
-							// CLEARING THE FILE ELEMENT
-							document.getElementById("gui_controls_file").value = null;
-
-							// STARTING QUAKE III ARENA
-							runQuake3();
-							};
-
-						// READING THE FILE
-						filereader.readAsText(files[0]);
-						}
-						else
-						{
-						alert(STRING_ERRORFILENAME);
-						}
-					}
-					catch(err)
-					{
-					}
-				}
-
-			function unloadContainer()
-				{
-				try
-					{
-					// SHOWS THE GUI
-					document.getElementsByClassName("gui_container")[0].style.display = "block";
-
-					// UNLOADING THE QUAKE III ARENA
-					document.getElementById("container").style.display = "none";
-					document.getElementById("container").contentDocument.location.replace("about:blank");
-					}
-					catch(err)
-					{
-					}
-				}
-
-			function resizeContent()
-				{
-				var w = window.innerWidth;
-				var h = window.innerHeight;
-				if(window.innerHeight > window.innerWidth) // MOBILE DEVICE
-					{
-					document.getElementById("container").style.width = h + "px";
-					document.getElementById("container").style.height = w + "px";
+					STRING_ERROR_TITLE = "MENSAJE";
+					STRING_ERROR_MESSAGE = "Debe seleccionar el archivo<br/>q3config.cfg que contiene su<br/>perfil de Quake III Arena.";
+					STRING_ERROR_OK = "Aceptar";
 					}
 					else
 					{
-					document.getElementById("container").style.width = w + "px";
-					document.getElementById("container").style.height = h + "px";
+					STRING_ERROR_TITLE = "MESSAGE";
+					STRING_ERROR_MESSAGE = "You must select the q3config.cfg file. It has your Quake III Arena profile.";
+					STRING_ERROR_OK = "OK";
 					}
-				}
 
-			window.addEventListener("load", function()
-				{
-				// RESIZING THE IFRAME
-				resizeContent();
-
-				document.getElementById("gui_controls_file").value = null;
-				document.getElementById("container").contentDocument.location.replace("about:blank");
-
-				// TO KEEP FOCUS IN THE CONTAINER
-				setInterval(function()
+				function runQuake3()
 					{
-					document.getElementById("container").focus();
-					}, 250);
-				});
+					try
+						{
+						// HIDES THE GUI
+						document.getElementsByClassName("gui_container")[0].style.display = "none";
 
-			window.addEventListener("resize", function()
-				{
-				// RESIZING THE IFRAME WHEN THE SCREEN SIZE CHANGES
-				resizeContent();
-				});
+						// DISPLAYING THE QUAKE III ARENA CONTAINER
+						document.getElementById("container").style.display = "block";
+						document.getElementById("container").focus();
 
-			var supportsOrientationChange = "onorientationchange" in window, orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
-			window.addEventListener(orientationEvent, function()
-				{
-				// RESIZING THE IFRAME WHEN THE SCREEN ORIENTATION CHANGES
-				resizeContent();
-				}, false);
-		</script>
+						// STARTING QUAKE III ARENA
+						document.getElementById("container").contentDocument.location.replace("Quake3Game.htm");
+						}
+						catch(err)
+						{
+						}
+					}
 
-		<iframe id="container" src="about:blank"></iframe>
+				function readFile(files)
+					{
+					try
+						{
+						// CHECKING IF THE IS THE QUAKE 3 PROFILE/SAVEGAME FILE
+						if (files[0].name.toLowerCase()=="q3config.cfg")
+							{
+							// CREATING THE FILE READER
+							var filereader = new FileReader();
 
-		<div class="gui_container">
-			<div class="gui_background"></div>
-			<div class="gui_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
-			<div class="gui_start" onclick="runQuake3()"></div>
-			<div class="gui_upload" onclick="document.getElementById('gui_controls_file').click()"></div>
-			<input type="file" id="gui_controls_file" class="gui_controls_file" onchange="readFile(event.target.files);"/>
-		</div>
+							// SETTING THE FILENAME
+							filereader.file_name = files[0].name;
+
+							// SETTING WHAT WILL HAPPEN WHEN THE FILE IS READ
+							filereader.onload = function()
+								{
+								// SETS THE FILE CONTENT FOR THE EMULATOR
+								profileData = this.result;
+
+								// CLEARING THE FILE ELEMENT
+								document.getElementById("gui_controls_file").value = null;
+
+								// STARTING QUAKE III ARENA
+								runQuake3();
+								};
+
+							// READING THE FILE
+							filereader.readAsText(files[0]);
+							}
+							else
+							{
+							// SHOWING A MESSAGE SAYING THAT YOU CAN ONLY SELECT THE QUAKE 3 PROFILE/SAVEGAME FILE
+							alertCustom(STRING_ERROR_TITLE,STRING_ERROR_MESSAGE,STRING_ERROR_OK, function(){});
+							}
+						}
+						catch(err)
+						{
+						}
+					}
+
+				function unloadContainer()
+					{
+					try
+						{
+						// SHOWS THE GUI
+						document.getElementsByClassName("gui_container")[0].style.display = "block";
+
+						// UNLOADING THE QUAKE III ARENA
+						document.getElementById("container").style.display = "none";
+						document.getElementById("container").contentDocument.location.replace("about:blank");
+						}
+						catch(err)
+						{
+						}
+					}
+
+				function resizeContent()
+					{
+					var w = window.innerWidth;
+					var h = window.innerHeight;
+					if(window.innerHeight > window.innerWidth) // MOBILE DEVICE
+						{
+						document.getElementById("container").style.width = h + "px";
+						document.getElementById("container").style.height = w + "px";
+						}
+						else
+						{
+						document.getElementById("container").style.width = w + "px";
+						document.getElementById("container").style.height = h + "px";
+						}
+					}
+
+				window.addEventListener("load", function()
+					{
+					// RESIZING THE IFRAME
+					resizeContent();
+
+					// CLEARING THE SELECTED FILE VALUE
+					document.getElementById("gui_controls_file").value = null;
+
+					// CLEARING THE QUAKE III ARENA CONTAINER
+					document.getElementById("container").contentDocument.location.replace("about:blank");
+
+					// SETTING WHAT WILL HAPPEN WHEN THE USER CLICKS ON THE START AND UPLOAD ICONS
+					document.getElementsByClassName("gui_start")[0].addEventListener("click",function(event){runQuake3()});
+					document.getElementsByClassName("gui_upload")[0].addEventListener("click",function(event){document.getElementById("gui_controls_file").click()});
+
+					// TO KEEP FOCUS IN THE CONTAINER
+					setInterval(function()
+						{
+						document.getElementById("container").focus();
+						}, 250);
+					});
+
+				window.addEventListener("resize", function()
+					{
+					// RESIZING THE IFRAME WHEN THE SCREEN SIZE CHANGES
+					resizeContent();
+					});
+
+				var supportsOrientationChange = "onorientationchange" in window, orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+				window.addEventListener(orientationEvent, function()
+					{
+					// RESIZING THE IFRAME WHEN THE SCREEN ORIENTATION CHANGES
+					resizeContent();
+					}, false);
+			</script>
+
+			<iframe id="container" src="about:blank"></iframe>
+
+			<div class="gui_container">
+				<div class="gui_background"></div>
+				<div class="gui_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
+				<div class="gui_start"></div>
+				<div class="gui_upload"></div>
+				<input type="file" id="gui_controls_file" class="gui_controls_file" onchange="readFile(event.target.files);"/>
+			</div>
 		</div>
 	</body>
 </html>
