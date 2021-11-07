@@ -46,6 +46,14 @@
 	</head>
 	<body class="body">
 		<div class="wrapper">
+			<iframe id="container" src="about:blank"></iframe>
+			<div class="gui_container">
+				<div class="gui_background"></div>
+				<div class="gui_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
+				<div class="gui_start"></div>
+				<div class="gui_upload"></div>
+				<input type="file" id="gui_controls_file" class="gui_controls_file" onchange="readFile(event.target.files);"/>
+			</div>
 			<script>
 				// alertCustom.js
 				function alertCustom(title,message,accept,callback){try{var alertButtonDelay = new Date().getTime();var alertContainer = document.createElement("div");alertContainer.className = "alert_confirm_input_custom";alertContainer.style.position = "fixed";alertContainer.style.top = 0;alertContainer.style.bottom = 0;alertContainer.style.left = 0;alertContainer.style.right = 0;alertContainer.style.zIndex = 999;alertContainer.style.backgroundColor = "rgba(0,0,0,0.5)";alertContainer.style.userSelect = "none";var alertForm = document.createElement("div");alertForm.style.position = "relative";alertForm.style.top = "50%";alertForm.style.left = 0;alertForm.style.right = 0;alertForm.style.marginLeft = "auto";alertForm.style.marginRight = "auto";alertForm.style.transform = "translateY(-50%)";alertForm.style.width = "300px";alertForm.style.backgroundColor = "#f2f2f2";alertForm.style.textAlign = "center";alertForm.style.borderRadius = "5px";alertForm.style.overflow = "hidden";alertForm.style.boxShadow = "0 2px 2px 1px rgba(0,0,0,0.4)";var alertTitle = document.createElement("div");alertTitle.style.textAlign = "left";alertTitle.style.paddingLeft = "10px";alertTitle.style.backgroundColor = "#3a76b1";alertTitle.style.fontFamily = "Arial";alertTitle.style.fontSize = "16px";alertTitle.style.fontWeight = "bold";alertTitle.style.color = "white";alertTitle.style.lineHeight = 2.5;alertTitle.innerHTML = title;alertTitle.style.cursor = "default";var alertMessage = document.createElement("div");alertMessage.style.padding = "20px";alertMessage.style.fontFamily = "Arial";alertMessage.style.fontSize = "16px";alertMessage.style.color = "black";alertMessage.style.textAlign = "center";alertMessage.style.lineHeight = 2;alertMessage.innerHTML = message;alertMessage.style.cursor = "default";var alertButton = document.createElement("input");alertButton.type = "submit";alertButton.style.outline = "none";alertButton.style.padding = "10px";alertButton.style.backgroundColor = "#d2d2d2";alertButton.style.border = "1px solid #b2b2b2";alertButton.style.fontFamily = "Arial";alertButton.style.fontSize = "16px";alertButton.style.color = "black";alertButton.style.textAlign = "center";alertButton.style.lineHeight = 1.5;alertButton.style.display = "inline-block";alertButton.style.marginBottom = "10px";alertButton.style.paddingLeft = "40px";alertButton.style.paddingRight = "40px";alertButton.style.cursor = "pointer";alertButton.style.borderRadius = "5px";alertButton.addEventListener("keydown",function(event){event.preventDefault()});alertButton.addEventListener("keyup",function(event){if (event.keyCode==13 && new Date().getTime()>alertButtonDelay+200){callback();document.body.removeChild(alertContainer)}});alertButton.addEventListener("click",function(event){callback();document.body.removeChild(alertContainer)});alertButton.value = accept;alertForm.appendChild(alertTitle);alertForm.appendChild(alertMessage);alertForm.appendChild(alertButton);alertContainer.appendChild(alertForm);document.body.appendChild(alertContainer);alertButton.focus()}catch(err){}}
@@ -195,17 +203,20 @@
 					// RESIZING THE IFRAME WHEN THE SCREEN ORIENTATION CHANGES
 					resizeContent();
 					}, false);
+
+				if ("serviceWorker" in navigator)
+					{
+					navigator.serviceWorker.register("worker.js").then(function(registration)
+						{
+						// Registration successful
+						//console.log("ServiceWorker registration successful with scope: " + registration.scope);
+						}).catch(function(err)
+						{
+						// Registration failed
+						//console.log("ServiceWorker registration failed: " + err);
+						});
+					}
 			</script>
-
-			<iframe id="container" src="about:blank"></iframe>
-
-			<div class="gui_container">
-				<div class="gui_background"></div>
-				<div class="gui_email"><a href="mailto:info@lrusso.com">info@lrusso.com</a></div>
-				<div class="gui_start"></div>
-				<div class="gui_upload"></div>
-				<input type="file" id="gui_controls_file" class="gui_controls_file" onchange="readFile(event.target.files);"/>
-			</div>
 		</div>
 	</body>
 </html>
