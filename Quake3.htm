@@ -82,7 +82,7 @@
 					{
 					try
 						{
-						// HIDES THE GUI
+						// HIDING THE GUI
 						document.getElementsByClassName("gui_container")[0].style.display = "none";
 
 						// DISPLAYING THE QUAKE III ARENA CONTAINER
@@ -113,7 +113,7 @@
 							// SETTING WHAT WILL HAPPEN WHEN THE FILE IS READ
 							filereader.onload = function()
 								{
-								// SETS THE FILE CONTENT FOR THE EMULATOR
+								// SETTING THE FILE CONTENT (QUAKE 3 PROFILE/SAVEGAME)
 								profileData = this.result;
 
 								// CLEARING THE FILE ELEMENT
@@ -141,7 +141,7 @@
 					{
 					try
 						{
-						// SHOWS THE GUI
+						// SHOWING THE GUI
 						document.getElementsByClassName("gui_container")[0].style.display = "block";
 
 						// UNLOADING THE QUAKE III ARENA
@@ -184,7 +184,7 @@
 					document.getElementsByClassName("gui_start")[0].addEventListener("click",function(event){runQuake3()});
 					document.getElementsByClassName("gui_upload")[0].addEventListener("click",function(event){document.getElementById("gui_controls_file").click()});
 
-					// TO KEEP FOCUS IN THE CONTAINER
+					// CREATING AN INTERVAL TO KEEP FOCUS IN THE CONTAINER
 					setInterval(function()
 						{
 						document.getElementById("container").focus();
