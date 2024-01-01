@@ -1,4 +1,4 @@
-# Quake III Arena JS - JavaScript and WebAssembly porting
+# Quake III Arena JS - JavaScript and WebAssembly port
 
 ![alt screenshot](https://raw.githubusercontent.com/lrusso/Quake3/master/Quake31.png)
 
