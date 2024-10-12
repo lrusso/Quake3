@@ -171,24 +171,28 @@
 
 				window.addEventListener("load", function()
 					{
-					// RESIZING THE IFRAME
-					resizeContent();
-
-					// CLEARING THE SELECTED FILE VALUE
-					document.getElementById("gui_controls_file").value = null;
-
-					// CLEARING THE QUAKE III ARENA CONTAINER
-					document.getElementById("container").contentDocument.location.replace("about:blank");
-
-					// SETTING WHAT WILL HAPPEN WHEN THE USER CLICKS ON THE START AND UPLOAD ICONS
-					document.getElementsByClassName("gui_start")[0].addEventListener("click",function(event){runQuake3()});
-					document.getElementsByClassName("gui_upload")[0].addEventListener("click",function(event){document.getElementById("gui_controls_file").click()});
-
-					// CREATING AN INTERVAL TO KEEP FOCUS IN THE CONTAINER
-					setInterval(function()
+					// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME
+					if (window.top == window.self)
 						{
-						document.getElementById("container").focus();
-						}, 250);
+						// RESIZING THE IFRAME
+						resizeContent();
+
+						// CLEARING THE SELECTED FILE VALUE
+						document.getElementById("gui_controls_file").value = null;
+
+						// CLEARING THE QUAKE III ARENA CONTAINER
+						document.getElementById("container").contentDocument.location.replace("about:blank");
+
+						// SETTING WHAT WILL HAPPEN WHEN THE USER CLICKS ON THE START AND UPLOAD ICONS
+						document.getElementsByClassName("gui_start")[0].addEventListener("click",function(event){runQuake3()});
+						document.getElementsByClassName("gui_upload")[0].addEventListener("click",function(event){document.getElementById("gui_controls_file").click()});
+
+						// CREATING AN INTERVAL TO KEEP FOCUS IN THE CONTAINER
+						setInterval(function()
+							{
+							document.getElementById("container").focus();
+							}, 250);
+						}
 					});
 
 				window.addEventListener("resize", function()
