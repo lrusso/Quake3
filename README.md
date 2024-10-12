@@ -17,4 +17,4 @@ https://github.com/lrusso/VirtualJoystick
 
 ## Based on the work of:
 
-https://github.com/inolen/quakejs **(Commit 26 Mar 2019)**
+https://github.com/inolen/quakejs
