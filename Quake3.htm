@@ -250,6 +250,9 @@
 						}
 						else
 						{
+						// CLEARING THE SELECTED FILE VALUE
+						document.getElementById("gui_controls_file").value = null;
+
 						// SHOWING A MESSAGE SAYING THAT YOU CAN ONLY SELECT THE QUAKE 3 PROFILE/SAVEGAME FILE
 						alertCustom(STRING_ERROR_TITLE,STRING_ERROR_MESSAGE,STRING_ERROR_OK, function(){});
 						}
