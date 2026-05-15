@@ -18,7 +18,7 @@ A Quake III Arena port designed for running in pure JavaScript pre-ECMAScript 20
 
 ## Main differences with the original project:
 
-- Fixed a few bugs rendering bugs.
+- Fixed a few rendering bugs.
 - Adjusted the emscripten code to create an asm.js build.
 - Transpiled JS to pre-ES2015 via `node ConverterES5.js quake3.js`.
 
