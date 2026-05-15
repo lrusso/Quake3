@@ -26,4 +26,4 @@ A Quake III Arena port designed for running in pure JavaScript pre-ECMAScript 20
 
 https://github.com/lrusso/ioq3
 
-**NOTE:** Emscripten 4.0.23 was used to build the emulator.
+**NOTE:** Emscripten 4.0.23 was used to build the project.
