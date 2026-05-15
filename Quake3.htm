@@ -156,7 +156,9 @@
                   },
                   print: function print(_text) {},
                   printErr: function printErr(_text) {},
-                  onExit: function onExit(_code) {},
+                  onExit: function onExit(_code) {
+                    window.location.reload()
+                  },
                   preRun: [
                     function (module) {
                       try {
@@ -229,7 +231,9 @@
               },
               print: function print(_text) {},
               printErr: function printErr(_text) {},
-              onExit: function onExit(_code) {},
+              onExit: function onExit(_code) {
+                window.location.reload()
+              },
               preRun: [
                 function (module) {
                   try {
