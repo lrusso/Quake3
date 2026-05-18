@@ -38,8 +38,6 @@
 
       #canvas{width:100vw}
 
-      .percentage{display:none;position:fixed;width:64px;height:64px;left:0;right:0;top:150px;bottom:0;margin:auto auto;border:0;font-family:Arial;font-weight:bold;font-size:20px;background-color:#000;color:white;text-align:center;}
-
       .pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0}
       .lds-spinner{color:#fff;display:inline-block;position:relative;width:64px;height:64px}
       .lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}
@@ -77,7 +75,6 @@
         <div></div>
       </div>
     </div>
-    <div class="percentage"></div>
     <div id="container">
       <div class="logo"></div>
       <div id="email">
@@ -111,7 +108,6 @@
       var fileSelector = document.getElementById("file-selector")
       var fileInput = document.getElementById("file-input")
       var pleaseWait = document.querySelector(".pleasewait")
-      var percentage = document.querySelector(".percentage")
 
       var ioq3Module = null
       var io3Path = "demoq3"
@@ -149,21 +145,12 @@
           demoLoader.addEventListener("click", function () {
             container.style.display = "none"
             pleaseWait.style.display = "block"
-            percentage.style.display = "block"
 
             // no fetch here because the entire project
             // is compatible with pre 2015 environments.
             var xhr = new XMLHttpRequest()
             xhr.open("GET", "DEMO.pk3", true)
             xhr.responseType = "arraybuffer"
-            xhr.onprogress = function (oEvent) {
-              oEvent.total = oEvent.total ? oEvent.total : 39868228
-
-              var currentProgress = Math.floor((oEvent.loaded * 100) / oEvent.total)
-              if (Number.isFinite(currentProgress)) {
-                percentage.innerHTML = currentProgress + "%"
-              }
-            }
             xhr.onreadystatechange = function () {
               if (xhr.readyState === 4 && xhr.status === 200) {
                 var generatedArguments =
@@ -214,7 +201,6 @@
                   postRun: [
                     function () {
                       pleaseWait.style.display = "none"
-                      percentage.style.display = "none"
                     },
                   ],
                 })
