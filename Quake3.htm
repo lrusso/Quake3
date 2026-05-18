@@ -157,8 +157,10 @@
             xhr.open("GET", "DEMO.pk3", true)
             xhr.responseType = "arraybuffer"
             xhr.onprogress = function (oEvent) {
-              percentage.innerText =
-                Math.floor((oEvent.loaded * 100) / oEvent.total) + "%"
+              if (oEvent.total > 0) {
+                percentage.innerText =
+                  Math.floor((oEvent.loaded * 100) / oEvent.total) + "%"
+              }
             }
             xhr.onreadystatechange = function () {
               if (xhr.readyState === 4 && xhr.status === 200) {
