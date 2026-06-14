@@ -9,7 +9,7 @@ A Quake III Arena port designed for running in pure JavaScript pre-ECMAScript 20
 - [Quake III Arena](https://lrusso.github.io/Quake3/Quake3.htm)
 - [Quake III Arena online demo](https://lrusso.github.io/Quake3/Quake3.htm?demo)
 - [Quake III Arena online demo using my profile](https://lrusso.github.io/Quake3/Quake3.htm?demo&lrusso)
-- [Quake III Arena PK3 merger online](https://lrusso.github.io/Quake3/Merger.htm)
+- [Quake III Arena online PK3 merging tool](https://lrusso.github.io/Quake3/Merger.htm)
 
 ## Special keys:
 
