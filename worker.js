@@ -3,6 +3,8 @@ const filesToCache = [
   "Quake3.htm",
   "Quake3.js",
   "Quake3.json",
+  "Quake3FavIcon_192x192.png",
+  "Quake3FavIcon_512x512.png",
   "worker.js",
 ]
 
