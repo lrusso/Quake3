@@ -137,13 +137,27 @@ function bundleCoreJs(entries) {
     )
 
     // comments are left out, they're only notes for core-js's own linter and one
-    // of them names a rule that has the word require
+    // of them names a rule that has the word require. each file also goes through
+    // preset-env like the rest of the code, so the whole output is already in the
+    // form babel gives it and a check that runs preset-env again finds no changes.
+    // typeof-symbol is left out, since core-js tells its own symbols apart from the
+    // native ones with the real typeof, and that plugin swaps it for a helper.
     const code = Babel.transform(source, {
       babelrc: false,
       configFile: false,
       comments: false,
       sourceType: "script",
       plugins: [replaceCommonJsExports],
+      presets: [
+        [
+          "env",
+          {
+            targets: { ie: "11" },
+            modules: false,
+            exclude: ["transform-typeof-symbol"],
+          },
+        ],
+      ],
     }).code
 
     return "function (coreJsModule, coreJsImport) {\n" + code + "\n}"
