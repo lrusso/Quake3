@@ -133,14 +133,39 @@
         return bytes
       }
 
+      function decodeUrlParameter(text) {
+        var spaced = text.replace(/\+/g, " ")
+
+        try {
+          return decodeURIComponent(spaced)
+        } catch (err) {
+          return spaced
+        }
+      }
+
+      function getUrlParameter(name) {
+        var pairs = window.location.search.substring(1).split("&")
+
+        for (var i = 0; i < pairs.length; i++) {
+          var separator = pairs[i].indexOf("=")
+          var key = separator === -1 ? pairs[i] : pairs[i].substring(0, separator)
+          var value = separator === -1 ? "" : pairs[i].substring(separator + 1)
+
+          if (decodeUrlParameter(key) === name) {
+            return decodeUrlParameter(value)
+          }
+        }
+
+        return null
+      }
+
       window.addEventListener("load", function () {
         if (window.top === window.self) {
           pleaseWait.style.display = "none"
           container.style.display = "block"
 
-          var currentURL = new URL(window.location.href).searchParams
-          var demoRequired = currentURL.has("demo")
-          var useCustomProfile = currentURL.has("lrusso")
+          var demoRequired = getUrlParameter("demo") !== null
+          var useCustomProfile = getUrlParameter("lrusso") !== null
 
           if (demoRequired) {
             demoLoader.style.display = "block"
@@ -272,6 +297,32 @@
               },
               preRun: [
                 function (module) {
+                  function makeReader(idx) {
+                    var reader = new FileReader()
+                    reader.onload = function () {
+                      if (files[idx].name === "q3config.cfg") {
+                        module.FS.writeFile(
+                          "/home/web_user/.config/Quake3/" +
+                            io3Path +
+                            "/q3config.cfg",
+                          new Uint8Array(reader.result)
+                        )
+                      } else {
+                        module.FS.writeFile(
+                          "/" + io3Path + "/" + files[idx].name,
+                          new Uint8Array(reader.result)
+                        )
+                      }
+
+                      remaining = remaining - 1
+
+                      if (remaining === 0) {
+                        module.removeRunDependency("setup-ioq3-filesystem")
+                      }
+                    }
+                    reader.readAsArrayBuffer(files[idx])
+                  }
+
                   try {
                     ioq3Module = module
 
@@ -300,32 +351,6 @@
 
                     var remaining = files.length
 
-                    function makeReader(idx) {
-                      var reader = new FileReader()
-                      reader.onload = function () {
-                        if (files[idx].name === "q3config.cfg") {
-                          module.FS.writeFile(
-                            "/home/web_user/.config/Quake3/" +
-                              io3Path +
-                              "/q3config.cfg",
-                            new Uint8Array(reader.result)
-                          )
-                        } else {
-                          module.FS.writeFile(
-                            "/" + io3Path + "/" + files[idx].name,
-                            new Uint8Array(reader.result)
-                          )
-                        }
-
-                        remaining = remaining - 1
-
-                        if (remaining === 0) {
-                          module.removeRunDependency("setup-ioq3-filesystem")
-                        }
-                      }
-                      reader.readAsArrayBuffer(files[idx])
-                    }
-
                     for (var j = 0; j < files.length; j++) {
                       makeReader(j)
                     }
@@ -342,63 +367,6 @@
               ],
             })
           })
-
-          function downloadProfileFileQuake3() {
-            try {
-              if (container.style.display !== "none") {
-                return
-              }
-
-              var rawReading = ioq3Module.FS.readFile(
-                "/home/web_user/.config/Quake3/" + io3Path + "/q3config.cfg"
-              )
-              var fileAsArray = new Uint8Array(rawReading)
-              var blob = new Blob([fileAsArray], {
-                type: "application/octet-stream",
-              })
-              var url = window.URL.createObjectURL(blob)
-              var a
-              a = document.createElement("a")
-              a.href = url
-              a.download = "q3config.cfg"
-              document.body.appendChild(a)
-              a.style = "display: none"
-              a.click()
-              a.remove()
-            } catch (err) {
-              //
-            }
-          }
-
-          function requestFullscreenQuake3() {
-            try {
-              if (container.style.display !== "none") {
-                return
-              }
-
-              var docEl = document.body
-
-              var requestFull =
-                docEl.requestFullscreen ||
-                docEl.mozRequestFullScreen ||
-                docEl.webkitRequestFullscreen ||
-                docEl.msRequestFullscreen
-
-              var isFull =
-                docEl.fullscreenElement ||
-                docEl.mozFullScreenElement ||
-                docEl.webkitFullscreenElement ||
-                docEl.msFullscreenElement
-
-              if (!isFull) {
-                if (requestFull) {
-                  requestFull.call(docEl)
-                }
-              }
-            } catch (err) {
-              //
-            }
-          }
 
           window.addEventListener("keydown", function (event) {
             var KEY_CTRL = event.ctrlKey || event.metaKey
@@ -417,16 +385,74 @@
           })
 
           // fix for mobile devices
-          function resizeCanvas() {
-            setTimeout(function () {
-              gameWrapper.style.width = window.innerWidth + "px"
-              gameWrapper.style.height = window.innerHeight + "px"
-            }, 200)
-          }
           window.addEventListener("resize", resizeCanvas, false)
           window.addEventListener("orientationchange", resizeCanvas, false)
 
           resizeCanvas()
+        }
+
+        function downloadProfileFileQuake3() {
+          try {
+            if (container.style.display !== "none") {
+              return
+            }
+
+            var rawReading = ioq3Module.FS.readFile(
+              "/home/web_user/.config/Quake3/" + io3Path + "/q3config.cfg"
+            )
+            var fileAsArray = new Uint8Array(rawReading)
+            var blob = new Blob([fileAsArray], {
+              type: "application/octet-stream",
+            })
+            var url = window.URL.createObjectURL(blob)
+            var a
+            a = document.createElement("a")
+            a.href = url
+            a.download = "q3config.cfg"
+            document.body.appendChild(a)
+            a.style = "display: none"
+            a.click()
+            a.remove()
+          } catch (err) {
+            //
+          }
+        }
+
+        function requestFullscreenQuake3() {
+          try {
+            if (container.style.display !== "none") {
+              return
+            }
+
+            var docEl = document.body
+
+            var requestFull =
+              docEl.requestFullscreen ||
+              docEl.mozRequestFullScreen ||
+              docEl.webkitRequestFullscreen ||
+              docEl.msRequestFullscreen
+
+            var isFull =
+              docEl.fullscreenElement ||
+              docEl.mozFullScreenElement ||
+              docEl.webkitFullscreenElement ||
+              docEl.msFullscreenElement
+
+            if (!isFull) {
+              if (requestFull) {
+                requestFull.call(docEl)
+              }
+            }
+          } catch (err) {
+            //
+          }
+        }
+
+        function resizeCanvas() {
+          setTimeout(function () {
+            gameWrapper.style.width = window.innerWidth + "px"
+            gameWrapper.style.height = window.innerHeight + "px"
+          }, 200)
         }
       })
 
