@@ -235,7 +235,8 @@
 
                         module.FS.writeFile(
                           "/demoq3/pak0.pk3",
-                          new Uint8Array(xhr.response)
+                          new Uint8Array(xhr.response),
+                          { canOwn: true }
                         )
                         module.removeRunDependency("setup-ioq3-filesystem")
                       } catch (err) {
